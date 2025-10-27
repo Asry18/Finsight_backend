@@ -1,14 +1,17 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+# Allow frontend (Next.js) to call backend APIs
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # in production, use specific domain instead of "*"
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.get("/")
 def read_root():
-    return {"message": "Hello from FastAPI backend!"}
-
-@app.get("/api/appointments")
-def get_appointments():
-    return [
-        {"id": 1, "customer": "Asry", "status": "Pending"},
-        {"id": 2, "customer": "Sam", "status": "Confirmed"},
-    ]
+    return {"Hello from backecn-FastAPI!"}
